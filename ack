@@ -1588,6 +1588,7 @@ sub filetypes {
     return 'skipped' unless is_searchable( $basename );
 
     my $lc_basename = lc $basename;
+    return ('lock',TEXT)        if $lc_basename eq 'lock';
     return ('make',TEXT)        if $lc_basename eq 'makefile' || $lc_basename eq 'gnumakefile';
     return ('rake','ruby',TEXT) if $lc_basename eq 'rakefile';
 
