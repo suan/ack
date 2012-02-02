@@ -1239,6 +1239,7 @@ BEGIN {
         js          => [qw( js )],
         jsp         => [qw( jsp jspx jhtm jhtml )],
         lisp        => [qw( lisp lsp )],
+        lock        => q{lockfiles},
         lua         => [qw( lua )],
         make        => q{Makefiles (including *.mk and *.mak)},
         mason       => [qw( mas mhtml mpl mtxt )],
