@@ -28,8 +28,9 @@ MAIN: {
     for ( @ARGV ) {
         last if ( $_ eq '--' );
 
-        # Priorities! Get the --thpppt checking out of the way.
+        # Priorities! Get the --thpppt and --bar checking out of the way.
         /^--th[pt]+t+$/ && App::Ack::_thpppt($_);
+        /^--bar$/ && App::Ack::_bar();
 
         # See if we want to ignore the environment. (Don't tell Al Gore.)
         if ( /^--(no)?env$/ ) {
@@ -441,6 +442,10 @@ Display the all-important Bill The Cat logo.  Note that the exact
 spelling of B<--thpppppt> is not important.  It's checked against
 a regular expression.
 
+=item B<--bar>
+
+Check with the admiral for traps.
+
 =item B<--type=TYPE>, B<--type=noTYPE>
 
 Specify the types of files to include or exclude from a search.
@@ -746,7 +751,7 @@ For example:
 
 or if you prefer:
 
-    perl -p -i -e's/this/thatg/' $(ack -f --perl)
+    perl -p -i -e's/this/that/g' $(ack -f --perl)
 
 =head2 Use F<-Q> when in doubt about metacharacters
 
@@ -881,6 +886,10 @@ Support for and information about F<ack> can be found at:
 
 L<http://betterthangrep.com/>
 
+=item * The ack-users mailing list
+
+L<http://groups.google.com/group/ack-users>
+
 =item * The ack issues list at Github
 
 L<https://github.com/petdance/ack/issues>
@@ -908,6 +917,7 @@ L<https://github.com/petdance/ack>
 How appropriate to have I<ack>nowledgements!
 
 Thanks to everyone who has contributed to ack in any way, including
+Shlomi Fish,
 Karen Etheridge,
 Olivier Mengue,
 Matthew Wild,
@@ -977,7 +987,7 @@ and Pete Krawczyk.
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2005-2011 Andy Lester.
+Copyright 2005-2012 Andy Lester.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the Artistic License v2.0.
@@ -1725,6 +1735,54 @@ sub _thpppt {
     exit 0;
 }
 
+sub _bar {
+    my $x;
+    $x = <<'_BAR';
+ 6?!I'7!I"?%+!
+ 3~!I#7#I"7#I!?!+!="+"="+!:!
+ 2?#I!7!I!?#I!7!I"+"=%+"=#
+ 1?"+!?*+!=#~"=!+#?"="+!
+ 0?"+!?"I"?&+!="~!=!~"=!+%="+"
+ /I!+!?)+!?!+!=$~!=!~!="+!="+"?!="?!
+ .?%I"?%+%='?!=#~$="
+ ,,!?%I"?(+$=$~!=#:"~$:!~!
+ ,I!?!I!?"I"?!+#?"+!?!+#="~$:!~!:!~!:!,!:!,":#~!
+ +I!?&+!="+!?#+$=!~":!~!:!~!:!,!:#,!:!,%:"
+ *+!I!?!+$=!+!=!+!?$+#=!~":!~":#,$:",#:!,!:!
+ *I!?"+!?!+!=$+!?#+#=#~":$,!:",!:!,&:"
+ )I!?$=!~!=#+"?!+!=!+!=!~!="~!:!~":!,'.!,%:!~!
+ (=!?"+!?!=!~$?"+!?!+!=#~"=",!="~$,$.",#.!:!=!
+ (I"+"="~"=!+&=!~"=!~!,!~!+!=!?!+!?!=!I!?!+"=!.",!.!,":!
+ %I$?!+!?!=%+!~!+#~!=!~#:#=!~!+!~!=#:!,%.!,!.!:"
+ $I!?!=!?!I!+!?"+!=!~!=!~!?!I!?!=!+!=!~#:",!~"=!~!:"~!=!:",&:" '-/
+ $?!+!I!?"+"=!+"~!,!:"+#~#:#,"=!~"=!,!~!,!.",!:".!:! */! !I!t!'!s! !a! !g!r!e!p!!! !/!
+ $+"=!+!?!+"~!=!:!~!:"I!+!,!~!=!:!~!,!:!,$:!~".&:"~!,# (-/
+ %~!=!~!=!:!.!+"~!:!,!.!,!~!=!:$.!,":!,!.!:!~!,!:!=!.#="~!,!:" ./!
+ %=!~!?!+"?"+!=!~",!.!:!?!~!.!:!,!:!,#.!,!:","~!:!=!~!=!:",!~! ./!
+ %+"~":!~!=#~!:!~!,!.!~!:",!~!=!~!.!:!,!.",!:!,":!=":!.!,!:!7! -/!
+ %~",!:".#:!=!:!,!:"+!:!~!:!.!,!~!,!.#,!.!,$:"~!,":"~!=! */!
+ &=!~!=#+!=!~",!.!:",#:#,!.",+:!,!.",!=!+!?!
+ &~!=!~!=!~!:"~#:",!.!,#~!:!.!+!,!.",$.",$.#,!+!I!?!
+ &~!="~!:!~":!~",!~!=!~":!,!:!~!,!:!,&.$,#."+!?!I!?!I!
+ &~!=!~!=!+!,!:!~!:!=!,!:!~&:$,!.!,".!,".!,#."~!+!?$I!
+ &~!=!~!="~!=!:!~":!,!~%:#,!:",!.!,#.",#I!7"I!?!+!?"I"
+ &+!I!7!:#~"=!~!:!,!:"~$.!=!.!,!~!,$.#,!~!7!I#?!+!?"I"7!
+ %7#?!+!~!:!=!~!=!~":!,!:"~":#.!,)7#I"?"I!7&
+ %7#I!=":!=!~!:"~$:"~!:#,!:!,!:!~!:#,!7#I!?#7)
+ $7$+!,!~!=#~!:!~!:!~$:#,!.!~!:!=!,":!7#I"?#7+=!?!
+ $7#I!~!,!~#=!~!:"~!:!,!:!,#:!=!~",":!7$I!?#I!7*+!=!+"
+ "I!7$I!,":!,!.!=":$,!:!,$:$7$I!+!?"I!7+?"I!7!I!7!,!
+ !,!7%I!:",!."~":!,&.!,!:!~!I!7$I!+!?"I!7,?!I!7',!
+ !7(,!.#~":!,%.!,!7%I!7!?#I"7,+!?!7*
+7+:!,!~#,"=!7'I!?#I"7/+!7+
+77I!+!7!?!7!I"71+!7,
+_BAR
+
+    $x =~ s/(.)(.)/$1x(ord($2)-32)/eg;
+    App::Ack::print( $x );
+    exit 0;
+}
+
 sub _key {
     my $str = lc shift;
     $str =~ s/[^a-z]//g;
@@ -1864,6 +1922,7 @@ Miscellaneous:
   --man                 Man page
   --version             Display version & copyright
   --thpppt              Bill the Cat
+  --bar                 The warning admiral
 
 Exit status is 0 if match, 1 if no match.
 

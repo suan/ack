@@ -53,14 +53,6 @@ WriteMakefile( %parms );
 
 package MY;
 
-sub MY::top_targets {
-    my $str = shift->SUPER::top_targets(@_);
-
-    $str =~ s/^pure_all.+/$& ack ack-help.txt ack-help-types.txt ack-help-dirs.txt/m;
-
-    return $str;
-}
-
 sub MY::postamble {
     my $file_next_filename = qx(perldoc -l File::Next);
     my $postamble = <<'MAKE_FRAG';
@@ -71,9 +63,6 @@ BASIC_PM        = Basic.pm
 REPOSITORY_PM   = Repository.pm
 RESOURCE_PM     = Resource.pm
 ALL_PM          = $(ACK_PM) $(REPOSITORY_PM) $(RESOURCE_PM) $(BASIC_PM)
-ACK_HELP        = ack-help.txt
-ACK_HELP_TYPES  = ack-help-types.txt
-ACK_HELP_DIRS   = ack-help-dirs.txt
 PERL_T          = $(PERL) -T
 
 .PHONY: tags critic
@@ -129,15 +118,6 @@ $(ACK) : $(BASE) $(ALL_PM) squash Makefile
 	$(PERL) squash ack-base File::Next $(ALL_PM) > $(ACK)
 	$(CHMOD) 0755 $(ACK)
 	$(PERL_T) -c $(ACK)
-
-$(ACK_HELP) : $(ACK)
-	$(PERL_T) $(ACK) --noenv --help > $(ACK_HELP) || perl -e0
-
-$(ACK_HELP_TYPES) : $(ACK)
-	$(PERL_T) $(ACK) --noenv --help=types > $(ACK_HELP_TYPES) || perl -e0
-
-$(ACK_HELP_DIRS) : $(ACK)
-	$(PERL_T) $(ACK) --noenv --help=dirs > $(ACK_HELP_DIRS) || perl -e0
 
 MAKE_FRAG
 
